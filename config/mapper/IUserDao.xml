@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.IUserDao">
+<insert id="addOrder" parameterType="order">
+    insert into t_order values(#{order_id},#{order_creatdate},#{order_enddate},#{order_price},#{order_status},#{uid})
+</insert>
+    <insert id="addUser" parameterType="userCustom">
+        insert into t_user(uname,upwd,uphone,sex) values(#{user.uname},#{user.upwd},#{user.uphone},#{user.sex})
+    </insert>
+</mapper>

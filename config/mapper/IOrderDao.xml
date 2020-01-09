@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.yunhe.dao.IOrderDao">
+    <resultMap id="OrderDetailMap" type="orderDetail">
+        <id property="detail_id" column="detail_id"/>
+        <result property="item_id" column="item_id"/>
+        <result property="order_id" column="order_id"/>
+        <association property="item" javaType="item">
+        <result property="item_name" column="item_name"/>
+        <result property="item_price" column="item_price"/>
+        <result property="item_type" column="item_type"/>
+        </association>
+    </resultMap>
+<select id="OrderDetail" parameterType="item" resultMap="OrderDetailMap">
+    select
+    detail.detail_id,
+    detail.item_id,
+    detail.order_id,
+    item.item_name,
+    item.item_price,
+    item.item_type
+    from t_orderdetail detail,t_item item
+    <where>
+        detail.item_id = item.item_id
+        <if test="item_name!=null and !item_name.isEmpty()">
+            and  item.item_name like concat('%',#{item_name},'%')
+        </if>
+        <if test="item_type!=null and !item_type.isEmpty()">
+            and item.item_type = #{item_type}
+        </if>
+    </where>
+
+
+
+</select>
+</mapper>
